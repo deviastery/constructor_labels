@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make your label!</title>
+</head>
+<body>
+    <div class="constructor">
+        <div class='box' id="result">
+            <div id="label">Make your label!</div>
+            <textarea id="cssCode" cols="66" rows="10" readonly></textarea>
+            <button id="copy_btn">Copy</button>
+        </div>
+        <form class='box' id="main_form">
+            <div class='box' id="background">
+                <div class='box' id="angles" class="margin_bottom_10">
+                    <label for="all_angles">All angles</label>
+                    <input type="range" id="all_angles" min="0" max="100" step="1" value="0">
+
+                    <label for="upper_left">Upper left</label>
+                    <input type="range" id="upper_left" min="0" max="100" step="1" value="0">
+
+                    <label for="upper_right">Upper right</label>
+                    <input type="range" id="upper_right" min="0" max="100" step="1" value="0">
+                    
+                    <label for="lower_left">Lower left</label>
+                    <input type="range" id="lower_left" min="0" max="100" step="1" value="0">
+                    
+                    <label for="lower_right">Lower right</label>
+                    <input type="range" id="lower_right" min="0" max="100" step="1" value="0">
+                </div>
+
+            </div>
+
+            <div id="color_box" class="margin_bottom_10">
+                <label for="color_box">Color background</label>
+                <input type="color" id="color_bgc" value="#c58ad8">
+
+                <label for="color_border">Color border</label>
+                <input type="color" id="color_border" value="#3213ad">
+            </div>
+
+            <div class='box' id="border">
+
+                <label for="style_border">Style border</label>
+                <select name="style_border" id="style_border" class="margin_bottom_10">
+                    <option value="none">none</option>
+                    <option value="solid" selected>solid</option>
+                    <option value="dashed">dashed</option>
+                    <option value="dotted">dotted</option>
+                    <option value="double">double</option>
+                </select>
+
+                <label for="border_width">border width</label>
+                <input type="range" id="border_width" min="1" max="30" step="1" value="5" class="margin_bottom_10">
+
+            </div>
+
+            <div class='box' id="font">
+                <div class="color_box" id="small_color_box">
+                    <label for="color_font">Color font</label>
+                    <input type="color" id="color_font" value="#3213ad" class="margin_bottom_10">
+                </div>
+                <label for="font_size">Font size</label>
+                <input type="range" id="font_size" min="30" max="70" step="1" value="50" class="margin_bottom_10">
+
+                <label for="label_text">Text label</label>
+                <input type="text" id="label_text" maxlength="15" class="margin_bottom_10">
+
+                <label for="font_family">Font family</label>
+                <select id="font_family">
+                    <option value="Arial">Arial</option>
+                    <option value="'Times New Roman'" selected>Times New Roman</option>
+                    <option value="Trebuchet MS">Trebuchet MS</option>
+                    <option value="monospace">monospace</option>
+                    <option value="'Franklin Gothic Medium'">Franklin Gothic Medium</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        font-family: "Calibri";
+    }
+
+    .constructor {
+        display: flex;
+        justify-content: space-between;
+        margin: 70px 200px;
+    }
+
+    .box {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .margin_bottom_10 {
+        margin-bottom: 10px;
+    }
+
+    #color_box {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #result {
+        margin: auto 0;
+        margin-top: 30px;
+    }
+
+    #copy_btn {
+        width: 100px;
+        height: 40px;
+        margin-top: 5px;
+    }
+
+    #label {
+        background-color: #c58ad8;
+        width: 500px;
+        height: 200px;
+        max-width: 500px;
+        max-height: 200px;
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        border: 5px solid #3213ad;
+        color: #3213ad;
+    }
+
+    #main_form {
+        padding: 10px;
+        width: 320px;
+    }
+
+    #cssCode {
+        margin-top: 80px;
+    }
+
+    #small_color_box {
+        display: flex;
+        justify-content: space-between;
+        width: 125px;
+    }
+
+    #angles {
+        margin-bottom: 15px;
+    }
+
+</style>
+
+<script>
+    function generateCss() {
+        let upperLeftAngle = document.getElementById('upper_left').value;
+        let upperRightAngle = document.getElementById('upper_right').value;
+        let lowerLeftAngle = document.getElementById('lower_left').value;
+        let lowerRightAngle = document.getElementById('lower_right').value;
+
+        let colorBox = document.getElementById('color_bgc').value;
+
+        let colorBorder = document.getElementById('color_border').value;
+        let styleBorder = document.getElementById('style_border').value;
+        let borderWidth = document.getElementById('border_width').value;
+
+        let colorFont = document.getElementById('color_font').value;
+        let fontSize = document.getElementById('font_size').value;
+        let labelText = document.getElementById('label_text').value;
+        let fontFamily = document.getElementById('font_family').value;
+
+        let label = document.getElementById('label');
+        let textarea = document.getElementById('cssCode');
+        
+        let strUpperLeftRadius = ` ${upperLeftAngle}px`;
+        label.style.borderTopLeftRadius = strUpperLeftRadius;
+        let strUpperRightRadius = ` ${upperRightAngle}px`;
+        label.style.borderTopRightRadius = strUpperRightRadius;
+        let strLowerLeftRadius = ` ${lowerLeftAngle}px`;
+        label.style.borderBottomLeftRadius = strLowerLeftRadius;
+        let strLowerRightRadius = ` ${lowerRightAngle}px`;
+        label.style.borderBottomRightRadius = strLowerRightRadius;
+        
+
+        let strBgc = ` ${colorBox}`;
+        label.style.backgroundColor = strBgc;
+
+        let strBorder = `${colorBorder} ${styleBorder} ${borderWidth}px`;
+        label.style.border = strBorder;
+        document.getElementById('border_width').addEventListener('select', function() {
+            label.style.border = strBorder;
+        })
+
+        let strColorFont = ` ${colorFont}`;
+        label.style.color = strColorFont;
+        let strFontSize = ` ${fontSize}px`;
+        label.style.fontSize = strFontSize;
+        if(label_text.value) {label.innerHTML = label_text.value}
+        else {label.innerHTML = "Make your label!"};
+        let strFontFamily = ` ${fontFamily}`;
+        label.style.fontFamily = strFontFamily;
+        document.getElementById('font_family').addEventListener('select', function() {
+            label.style.fontFamily = strFontFamily;
+        })
+
+        let strRadius
+
+        if ((strUpperLeftRadius == strUpperRightRadius) && (strUpperRightRadius == strLowerLeftRadius) && (strLowerLeftRadius == strLowerRightRadius)) {
+        strRadius = `border-radius: ${strUpperLeftRadius};\n`
+        }
+        else {
+        strRadius = `border-top-left-radius: ${strUpperLeftRadius};\
+        \nborder-top-right-radius: ${strUpperRightRadius};\nborder-bottom-left-radius: ${strLowerLeftRadius};\
+        \nborder-bottom-right-radius: ${strLowerRightRadius};\n`
+        }
+
+        textarea.value = `${strRadius}background-color: ${strBgc};\
+        \nborder: ${strBorder};\ncolor: ${strColorFont};\nfont-size: ${strFontSize};\
+        \nfont-family: ${strFontFamily};\ndisplay: flex;\
+        \njustify-content: center;\nalign-items: center;\
+        \ntext-align: center;\nbox-sizing: border-box;`;
+    }
+    document.getElementById('font_family').addEventListener('change', function() {
+        let label = document.getElementById('label')
+        let fontFamily = document.getElementById('font_family').value;
+        let strFontFamily = ` ${fontFamily}`;
+        label.style.fontFamily = strFontFamily;
+        generateCss()
+    })
+
+    document.getElementById('style_border').addEventListener('change', function() {
+        let label = document.getElementById('label')
+        let colorBorder = document.getElementById('color_border').value;
+        let styleBorder = document.getElementById('style_border').value;
+        let borderWidth = document.getElementById('border_width').value;
+        let strBorder = `${colorBorder} ${styleBorder} ${borderWidth}px`;
+        label.style.border = strBorder;
+        generateCss()
+    })
+
+    document.getElementById('copy_btn').addEventListener('click', function() {
+        let copyText = document.getElementById('cssCode');
+        copyText.select();
+        document.execCommand("copy");
+    })
+  
+    document.getElementById('all_angles').addEventListener('input', function() {
+        
+        let allAngles = document.getElementById('all_angles').value;
+        let upperLeftAngle = document.getElementById('upper_left')
+        let upperRightAngle = document.getElementById('upper_right')
+        let lowerLeftAngle = document.getElementById('lower_left')
+        let lowerRightAngle = document.getElementById('lower_right')
+
+        upperLeftAngle.value = allAngles;
+        upperRightAngle.value = allAngles;
+        lowerLeftAngle.value = allAngles;
+        lowerRightAngle.value = allAngles;
+
+    })    
+
+
+    for(let item of document.querySelectorAll('input')) {
+      item.addEventListener('input', generateCss)
+    }
+
+    generateCss()
+
+</script>
